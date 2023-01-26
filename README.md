@@ -7,4 +7,3 @@ The calculator:
   - has a UI that supports these buttons (numbers 0-9, operators, decimal point, clear, backspace)
   - supports decimal user input 
   - supports keyboard input
-  
