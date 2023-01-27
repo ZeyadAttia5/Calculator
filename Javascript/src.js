@@ -1,13 +1,18 @@
 
 
 function guiStart(){
-    const body = document.querySelector('body')
+    const body = document.querySelector('body');
     const calc = document.createElement('div');
-    calc.classList.add('calcBody')
-    const screen = document.createElement('div');
-    screen.classList.add('screen')
+    calc.classList.add('calcBody');
+    const screenContainer = document.createElement('div');
+    const upperScreen = document.createElement('div');
+    const lowerScreen = document.createElement('div');
+    screenContainer.classList.add('screenContainer');
+    upperScreen.classList.add('upperScreen');
+    lowerScreen.classList.add('lowerScreen');
+
     const numPad = document.createElement('div');
-    numPad.classList.add('numPad')
+    numPad.classList.add('numPad');
     let count = 1;
     for (let i = 1; i <= 3; i++) {
         for (let j = 1; j <= 3; j++) {
@@ -60,17 +65,21 @@ function guiStart(){
         if(i == 4  )
             element.textContent = '/'   
         numPad.appendChild(element);
-    }   
-
-    calc.appendChild(screen)
+    }  
+    upperScreen.textContent = '0';
+    lowerScreen.textContent = '0'
+    calc.append(screenContainer);
     calc.appendChild(numPad);
+    screenContainer.appendChild(upperScreen);
+    screenContainer.appendChild(lowerScreen);
+
     body.appendChild(calc);
 }
 guiStart();
 
 
 
-function operate(operand1, operand2, operator){
+function operate(operand1 = 0, operand2 = 0, operator){
     switch(operator){
         case '+':
             return operand1 + operand2;
