@@ -66,6 +66,19 @@ function guiStart(){
             element.textContent = '/'   
         numPad.appendChild(element);
     }  
+
+    for (let i = 1; i <= 2; i++) {
+        const element = document.createElement('button');
+        element.style.gridRowStart = `${5}`;
+        i == 1 ? element.style.gridColumnStart = `1` : element.style.gridColumnStart = `3`;
+        i == 1 ? element.style.gridColumnEnd = `3` : element.style.gridColumnEnd = `5`;
+        i == 1 ? element.textContent = 'Clear': element.textContent = 'Delete';
+        numPad.appendChild(element);
+    }
+
+
+
+
     upperScreen.textContent = '0';
     lowerScreen.textContent = '0'
     calc.append(screenContainer);
