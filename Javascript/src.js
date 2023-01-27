@@ -66,5 +66,21 @@ function guiStart(){
     calc.appendChild(numPad);
     body.appendChild(calc);
 }
-
 guiStart();
+
+
+
+function operate(operand1, operand2, operator){
+    switch(operator){
+        case '+':
+            return operand1 + operand2;
+        case '-':
+            return operand1 - operand2;
+        case '/':
+            return operand1 / operand2;
+        case '*':
+            return operand1 * operand2;
+        default:
+            return;
+    }
+}
