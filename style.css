@@ -1,0 +1,30 @@
+
+body{
+    display: flex;
+    height: 90vh;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.calcBody{
+    display: flex;
+    flex-direction: column;
+    border: solid #000;
+    border-width: 1px;
+    border-radius: 3%;
+}
+
+.numPad{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.screen{
+    border: solid #000;
+    border-width: 1px;
+    border-radius: 3%;
+    height: 50px;
+}
