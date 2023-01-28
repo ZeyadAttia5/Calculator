@@ -79,7 +79,7 @@ function guiStart(){
 
 
 
-    upperScreen.textContent = '0';
+    upperScreen.textContent = '';
     lowerScreen.textContent = '0'
     calc.append(screenContainer);
     calc.appendChild(numPad);
@@ -93,18 +93,25 @@ guiStart();
 
 
 function operate(operand1 = 0, operand2 = 0, operator){
+    let result = 0;
     switch(operator){
         case '+':
-            return operand1 + operand2;
+              result = operand1 + operand2;
+              break;
         case '-':
-            return operand1 - operand2;
+              result = operand1 - operand2;
+              break;
         case '/':
-            return operand1 / operand2;
+              result = operand1 / operand2;
+              break;
         case '*':
-            return operand1 * operand2;
+              result = operand1 * operand2;
+              break;
         default:
-            return;
+              return;
     }
+
+    return Math.round((result + Number.EPSILON) * 1000) / 1000;
 }
 
 function isOperator(text){
@@ -122,7 +129,7 @@ function getClick(){
     function clickHandler(e){
         const lowerScreen = document.querySelector('.lowerScreen');
         const upperScreen = document.querySelector('.upperScreen');
-        const text = e.target.textContent;
+        let text = e.target.textContent;
         
 
         if(text === "Clear"){
@@ -136,14 +143,14 @@ function getClick(){
         
         else if(isOperator(text)){
             upperScreen.textContent = `${lowerScreen.textContent} ${text}`;
-            arr.splice(0, Infinity, parseFloat(lowerScreen.textContent));
+            arr.splice(0, 0, parseFloat(lowerScreen.textContent));
             arr.splice(1,0, text);
             console.log(arr);
             lowerScreen.textContent = "";
             console.log(arr);
         }
         else if(text === "="){
-            if(lowerScreen.textContent !== ""){
+            if(lowerScreen.textContent !== "" && upperScreen.textContent!==""){
                 arr.splice(2, 0, parseFloat(lowerScreen.textContent));
                 lowerScreen.textContent = "";
                 upperScreen.textContent = "";
@@ -151,7 +158,14 @@ function getClick(){
             }
         }
         else{
-            lowerScreen.textContent = `${lowerScreen.textContent}${text}`;
+            if(lowerScreen.textContent.indexOf('.') !== -1 && text==="."){
+                text = "";
+            }
+            if(lowerScreen.textContent.substring(0, 1) !== "0")
+                lowerScreen.textContent = `${lowerScreen.textContent}${text}`;
+            else
+                lowerScreen.textContent = `${text}`;
+                
         }
 
     }
