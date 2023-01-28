@@ -123,7 +123,7 @@ function isOperator(text){
 
 let arr = new Array();
 function getClick(){
-    let buttons = document.querySelectorAll('button');
+    const buttons = document.querySelectorAll('button');
     buttons.forEach(button => button.addEventListener('click', clickHandler));
     
     function clickHandler(e){
@@ -171,4 +171,58 @@ function getClick(){
     }
 }
 getClick();
+
+function isNumeric(value) {
+    return /^-?\d+$/.test(value);
+}
+
+function input(){
+    const buttons = document.querySelectorAll('buttons')
+    window.addEventListener('keydown', keyHandler);
+    
+    function keyHandler(e){
+        const lowerScreen = document.querySelector('.lowerScreen');
+        const upperScreen = document.querySelector('.upperScreen');
+        let text = e.key;
+    
+        if(text === "c"){
+            lowerScreen.textContent = "";
+            upperScreen.textContent = "";
+        }
+    
+        else if(text === "Backspace"){
+            lowerScreen.textContent = lowerScreen.textContent.substring(0,lowerScreen.textContent.length-1);
+        }
+            
+        else if(isOperator(text)){
+            upperScreen.textContent = `${lowerScreen.textContent} ${text}`;
+            arr.splice(0, 0, parseFloat(lowerScreen.textContent));
+            arr.splice(1,0, text);
+            console.log(arr);
+            lowerScreen.textContent = "";
+            console.log(arr);
+        }
+        else if(text === "Enter"){
+            if(lowerScreen.textContent !== "" && upperScreen.textContent!==""){
+                arr.splice(2, 0, parseFloat(lowerScreen.textContent));
+                lowerScreen.textContent = "";
+                upperScreen.textContent = "";
+                lowerScreen.textContent = operate(arr[0], arr[2], arr[1]);
+            }
+        }
+        else{
+            if(lowerScreen.textContent.indexOf('.') !== -1 && text==="."){
+                text = "";
+            }
+            if(isNumeric(text)){
+                if(lowerScreen.textContent.substring(0, 1) !== "0")
+                    lowerScreen.textContent = `${lowerScreen.textContent}${text}`;
+                else
+                    lowerScreen.textContent = `${text}`;
+            }
+        }
+    }   
+}
+
+input();
 
