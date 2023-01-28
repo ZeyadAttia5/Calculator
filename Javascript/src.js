@@ -106,3 +106,55 @@ function operate(operand1 = 0, operand2 = 0, operator){
             return;
     }
 }
+
+function isOperator(text){
+    if (text.includes('+') || text.includes('/') || text.includes('*') || text.includes('-'))
+        return true
+    else
+        return false
+}
+
+let arr = new Array();
+function getClick(){
+    let buttons = document.querySelectorAll('button');
+    buttons.forEach(button => button.addEventListener('click', clickHandler));
+    
+    function clickHandler(e){
+        const lowerScreen = document.querySelector('.lowerScreen');
+        const upperScreen = document.querySelector('.upperScreen');
+        const text = e.target.textContent;
+        
+
+        if(text === "Clear"){
+            lowerScreen.textContent = "";
+            upperScreen.textContent = "";
+        }
+
+        else if(text === "Delete"){
+            lowerScreen.textContent = lowerScreen.textContent.substring(0,lowerScreen.textContent.length-1);
+        }
+        
+        else if(isOperator(text)){
+            upperScreen.textContent = `${lowerScreen.textContent} ${text}`;
+            arr.splice(0, Infinity, parseFloat(lowerScreen.textContent));
+            arr.splice(1,0, text);
+            console.log(arr);
+            lowerScreen.textContent = "";
+            console.log(arr);
+        }
+        else if(text === "="){
+            if(lowerScreen.textContent !== ""){
+                arr.splice(2, 0, parseFloat(lowerScreen.textContent));
+                lowerScreen.textContent = "";
+                upperScreen.textContent = "";
+                lowerScreen.textContent = operate(arr[0], arr[2], arr[1]);
+            }
+        }
+        else{
+            lowerScreen.textContent = `${lowerScreen.textContent}${text}`;
+        }
+
+    }
+}
+getClick();
+
